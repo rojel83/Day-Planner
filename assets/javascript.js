@@ -13,7 +13,7 @@ $(document).ready(function() {
     // For loop to get and display tasks from local storage
     hourArr = $('.hour').toArray();
     for (i = 0; i < hourArr.length; i++) {
-        $(hourArr[i]).sibilings('textarea').text(localStorage.getItem($(hourArr[i]).attr('data-time')));
+        $(hourArr[i]).siblings('textarea').text(localStorage.getItem($(hourArr[i]).attr('data-time')));
     }
 });
 
@@ -57,5 +57,5 @@ for (i = 0; i < 9; i++) {
 // Save click event to store data in local storage
 $('.saveBtn').on('click', function() {
 
-    localStorage.setItem($(this).sibilings('div.hour').attr('data-time'), $(this).sibilings('textarea').val())
+    localStorage.setItem($(this).siblings('div.hour').attr('data-time'), $(this).siblings('textarea').val())
 });
