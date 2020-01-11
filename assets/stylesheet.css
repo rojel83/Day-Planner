@@ -2,6 +2,8 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     line-height: 1;
+    background-color: aqua;
+    border: solid#343a40 18px;
 }
 
 textarea {
@@ -41,6 +43,9 @@ textarea {
     background-color: #ffffff;
     color: #000000;
     border-top: 1px dashed #000000;
+    text-align: center;
+    padding-top: 30px;
+    border: groove;
 }
 
 .past {
@@ -55,7 +60,9 @@ textarea {
 
 .future {
     background-color: #77dd77;
-    color: white;
+    color: rgb(5, 5, 5);
+    padding: 30px;
+    border: solid black 1px;
 }
 
 .saveBtn {

@@ -1,37 +1,61 @@
-//Create variables for moment and date display.
+//set moment to a variable
 var now = moment();
-
+//create a variable for the current date
 var currentDate = now.format("MM DD YYYY");
 
-//Set date inside jumbotron class.
+// Set date 
 $("#currentDay").text("Today's Date: " + currentDate);
 
-//make a function to execute the JS code.
+
+
 $(document).ready(function() {
-    hourArr = $('.hour').toArray()
-        //create a for loop to retrieve and display task from local satorage.
 
+    // For loop to get and display tasks from local storage
+    hourArr = $('.hour').toArray();
     for (i = 0; i < hourArr.length; i++) {
-        $(hourArr[i]).sibilings('texarea').text(localStorage.getItem($(hourArr[i]).attr('data-time')))
+        $(hourArr[i]).sibilings('textarea').text(localStorage.getItem($(hourArr[i]).attr('data-time')));
     }
-
 });
 
-//adding a for loop to print the save buttons, rows and text boxes.
 
+// For loop to print rows with timeblocks, taskblocks, and save buttons
 for (i = 0; i < 9; i++) {
-    //add variables for the row boxes, the time blocks, text boxes and save buttons.
+    //create a variable for the row
+    var rowBlock = $('<div>').addClass('row');
+    //create a variable for the time block
+    var timeBlock = $('<div>').addClass('hour col-md-2').text(moment('9:00 AM', 'hh:mm A').add(i, 'hours').format('hA'));
+    timeBlock.attr('data-time', moment('9:00 AM', 'hh:mm A').add(i, 'hours').format('hA'));
+    //create a variable for the taskblock
+    var taskBlock = $('<textarea>').addClass('col-md-9');
+    //create a variable for the save block
+    var saveButton = $('<button>').addClass('saveBtn col-md-1').html('<i class="fas fa-save"></i>');
 
-    var rowBlock = $('<div>').addClass('row')
-    var timeBlock = $('<div>').addClass('hour col-md-2').text(moment('9:00 AM', 'hh:mm A').add(i, 'hours').format('hA'))
-    timeBlock.attr('data-time', moment('9:00 AM ', 'hh:mm A ').add(i, 'hours').format('hA'))
-    var textBlock = $('<textarea>').addClass('col-md-9')
-    var saveButton = $('<button>').addClass('saveBnt col-md-1').html(('<i class = "fas fa-save"></i>'))
-
-    //Append content to the row and time block to then display the time block, text block and save button in the respective container.
+    // Placing content created above into the DOM in the right order.
+    //append the container with the row
     $('.container').append(rowBlock);
+    //append the row with the time block
     $(rowBlock).append(timeBlock);
-    $(timeBlock).after(textBlock);
-    $(textBlock).after(saveButton);
+    //after the timeblock display the task block
+    $(timeBlock).after(taskBlock);
+    //after the taskblock display the save button
+    $(taskBlock).after(saveButton);
 
-};
+
+    // if else statement to determine the color of the row
+    //if the time is the same as the time on the timeblock, display task block as red
+    if (now.isSame(moment('9:00 AM', 'hh:mm A').add(i, 'hours'), 'hour')) {
+        $(taskBlock).addClass('present');
+        //if the time is in the future, display green
+    } else if (now.isBefore(moment('9:00 AM', 'hh:mm A').add(i, 'hours'), 'hour')) {
+        $(taskBlock).addClass('future');
+        //if the time is in the past, display grey
+    } else if (now.isAfter(moment('9:00 AM', 'hh:mm A').add(i, 'hours'), 'hour')) {
+        $(taskBlock).addClass('past');
+    }
+}
+
+// Save click event to store data in local storage
+$('.saveBtn').on('click', function() {
+
+    localStorage.setItem($(this).sibilings('div.hour').attr('data-time'), $(this).sibilings('textarea').val())
+});
