@@ -22,12 +22,16 @@ $(document).ready(function() {
 for (i = 0; i < 9; i++) {
     //add variables for the row boxes, the time blocks, text boxes and save buttons.
 
-    var rowBlock = $('<div>').addClass('row');
+    var rowBlock = $('<div>').addClass('row')
     var timeBlock = $('<div>').addClass('hour col-md-2').text(moment('9:00 AM', 'hh:mm A').add(i, 'hours').format('hA'))
-    timeBlock.attr('data-time', moment('9:00 AM ', 'hh:mm A ').add(i, 'hours').format('hA'));
-    var textBlock = $('<textarea>').addClass('col-md-9');
-    var saveButton = $('<button>').addClass('saveBnt col-md-1').html(('<i class = "fas fa-save"></i>'));
+    timeBlock.attr('data-time', moment('9:00 AM ', 'hh:mm A ').add(i, 'hours').format('hA'))
+    var textBlock = $('<textarea>').addClass('col-md-9')
+    var saveButton = $('<button>').addClass('saveBnt col-md-1').html(('<i class = "fas fa-save"></i>'))
 
-
+    //Append content to the row and time block to then display the time block, text block and save button in the respective container.
+    $('.container').append(rowBlock);
+    $(rowBlock).append(timeBlock);
+    $(timeBlock).after(textBlock);
+    $(textBlock).after(saveButton);
 
 };
